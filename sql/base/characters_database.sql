@@ -1169,6 +1169,94 @@ LOCK TABLES `character_tutorial` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `cheat_first_report`
+--
+
+DROP TABLE IF EXISTS `cheat_first_report`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cheat_first_report` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `guid` int(11) unsigned NOT NULL,
+  `name` varchar(100) collate utf8_unicode_ci default NULL,
+  `time` bigint(20) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `guid` (`guid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cheat_first_report`
+--
+
+LOCK TABLES `cheat_first_report` WRITE;
+/*!40000 ALTER TABLE `cheat_first_report` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cheat_first_report` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cheat_reports`
+--
+
+DROP TABLE IF EXISTS `cheat_reports`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cheat_reports` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `guid` int(11) unsigned NOT NULL,
+  `name` varchar(100) default NULL,
+  `mapid` smallint(5) unsigned NOT NULL default '0',
+  `position_x` float NOT NULL default '0',
+  `position_y` float NOT NULL default '0',
+  `position_z` float NOT NULL default '0',
+  `report` varchar(100) default NULL,
+  `time` bigint(20) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `guid` (`guid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cheat_reports`
+--
+
+LOCK TABLES `cheat_reports` WRITE;
+/*!40000 ALTER TABLE `cheat_reports` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cheat_reports` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cheat_temp_reports`
+--
+
+DROP TABLE IF EXISTS `cheat_temp_reports`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cheat_temp_reports` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `guid` int(11) unsigned NOT NULL,
+  `name` varchar(100) default NULL,
+  `mapid` smallint(5) unsigned NOT NULL default '0',
+  `position_x` float NOT NULL default '0',
+  `position_y` float NOT NULL default '0',
+  `position_z` float NOT NULL default '0',
+  `report` varchar(100) default NULL,
+  `time` bigint(20) NOT NULL default '0',
+  PRIMARY KEY  (`id`),
+  KEY `guid` (`guid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cheat_temp_reports`
+--
+
+LOCK TABLES `cheat_temp_reports` WRITE;
+/*!40000 ALTER TABLE `cheat_temp_reports` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cheat_temp_reports` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `corpse`
 --
 

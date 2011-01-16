@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -15,10 +16,6 @@
  * You should have received a copy of the GNU General Public License along
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-/// \addtogroup world The World
-/// @{
-/// \file
 
 #ifndef __WORLD_H
 #define __WORLD_H
@@ -163,6 +160,7 @@ enum WorldBoolConfigs
     CONFIG_ALLOW_TICKETS,
     CONFIG_DBC_ENFORCE_ITEM_ATTRIBUTES,
     CONFIG_PRESERVE_CUSTOM_CHANNELS,
+    CONFIG_ANTICHEAT_ENABLE,
     BOOL_CONFIG_VALUE_COUNT
 };
 
@@ -179,6 +177,7 @@ enum WorldFloatConfigs
     CONFIG_CREATURE_FAMILY_ASSISTANCE_RADIUS,
     CONFIG_THREAT_RADIUS,
     CONFIG_CHANCE_OF_GM_SURVEY,
+    CONFIG_ANTICHEAT_MAX_DISTANCE_DIFF_ALLOWED,
     FLOAT_CONFIG_VALUE_COUNT
 };
 
@@ -309,6 +308,9 @@ enum WorldIntConfigs
     CONFIG_DB_PING_INTERVAL,
     CONFIG_PRESERVE_CUSTOM_CHANNEL_DURATION,
     CONFIG_PERSISTENT_CHARACTER_CLEAN_FLAGS,
+    CONFIG_ANTICHEAT_MAX_DIFF_TIME,
+    CONFIG_ANTICHEAT_MIN_DIFF_TIME,
+    CONFIG_ANTICHEAT_REPORTS_FOR_GM_WARNING,
     INT_CONFIG_VALUE_COUNT
 };
 
