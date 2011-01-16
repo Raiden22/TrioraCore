@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -839,6 +840,11 @@ class ObjectMgr
         QuestRelationBounds GetCreatureQuestRelationBounds(uint32 creature_entry)
         {
             return mCreatureQuestRelations.equal_range(creature_entry);
+        }
+        
+        QuestRelations* GetCreatureQuestInvolvedRelation()
+        {
+            return &mCreatureQuestInvolvedRelations;
         }
 
         QuestRelationBounds GetCreatureQuestInvolvedRelationBounds(uint32 creature_entry)

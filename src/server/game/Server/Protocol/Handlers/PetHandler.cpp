@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -750,6 +751,15 @@ void WorldSession::HandlePetCastSpellOpcode(WorldPacket& recvPacket)
     {
         sLog->outError("WORLD: unknown PET spell id %i", spellId);
         return;
+    }
+    
+    switch (spellId)
+    {
+	    case 64077:
+	    {
+		    _player->CastSpell(caster, spellId, true);
+		    return;
+	    }
     }
 
     if (spellInfo->StartRecoveryCategory > 0) // Check if spell is affected by GCD

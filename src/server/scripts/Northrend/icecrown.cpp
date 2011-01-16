@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
@@ -423,6 +424,146 @@ public:
     }
 };
 
+/*######
+* npc_training_dummy_argent
+######*/
+
+enum eSpells
+{
+    SPELL_DEFEND_AURA			= 62719,
+    SPELL_DEFEND_AURA_1			= 64100,
+    SPELL_ARGENT_CHARGE			= 68321,
+    SPELL_ARGENT_BREAK_SHIELD	= 62626,
+    SPELL_ARGENT_MELEE			= 62544,
+};
+
+class npc_training_dummy_argent : public CreatureScript
+{
+public:
+    npc_training_dummy_argent(): CreatureScript("npc_training_dummy_argent"){}
+		
+    struct npc_training_dummy_argentAI : Scripted_NoMovementAI
+    {
+	    npc_training_dummy_argentAI(Creature *c) : Scripted_NoMovementAI(c)
+	    {
+            m_Entry = c->GetEntry();
+	    }
+
+	    uint64 m_Entry;
+	    uint32 ResetTimer;
+        uint32 DespawnTimer;
+        uint32 ShielTimer;
+        
+	    void Reset()
+        {
+            me->SetControlled(true,UNIT_STAT_STUNNED);//disable rotate
+            me->ApplySpellImmune(0, IMMUNITY_EFFECT, SPELL_EFFECT_KNOCK_BACK, true);//imune to knock aways like blast wave
+            me->ApplySpellImmune(0, IMMUNITY_MECHANIC, MECHANIC_STUN, true);
+            ResetTimer = 10000;
+            DespawnTimer = 15000;
+            ShielTimer=0;
+	    }
+
+	    void EnterEvadeMode()
+	    {
+            if (!_EnterEvadeMode())
+                return;
+
+            Reset();
+	    }
+
+        void DamageTaken(Unit * /*done_by*/, uint32 &damage)
+	    {
+            ResetTimer = 10000;
+            damage = 0;
+	    }
+
+	    void EnterCombat(Unit * /*who*/)
+	    {
+            if (m_Entry != 2674 && m_Entry != 2673)
+                return;
+	    }
+
+		void SpellHit(Unit* caster,const SpellEntry* spell)
+		{
+			if (caster->GetOwner())
+			{
+				if (m_Entry == 33272)
+					if (spell->Id == SPELL_ARGENT_CHARGE)
+						if (!me->GetAura(SPELL_DEFEND_AURA))
+							caster->GetOwner()->ToPlayer()->KilledMonsterCredit(33340, 0);
+                            
+				if (m_Entry == 33229)
+                {
+					if (spell->Id == SPELL_ARGENT_MELEE)
+					{
+                        me->CastSpell(caster,62709,true);
+						caster->GetOwner()->ToPlayer()->KilledMonsterCredit(33341, 0);
+					}
+				}
+			}
+				
+            if (m_Entry == 33243)
+                if (spell->Id == SPELL_ARGENT_BREAK_SHIELD)
+                    if (!me->GetAura(SPELL_DEFEND_AURA))
+                        if (caster->GetTypeId() == TYPEID_PLAYER)
+                            caster->ToPlayer()->KilledMonsterCredit(33339, 0);
+		}
+
+	    void UpdateAI(const uint32 diff)
+        {
+            if (ShielTimer <= diff)
+            {
+                if (m_Entry == 33243)
+                    me->CastSpell(me,SPELL_DEFEND_AURA,true);
+
+                if (m_Entry == 33272 && !me->GetAura(SPELL_DEFEND_AURA_1))
+                    me->CastSpell(me,SPELL_DEFEND_AURA_1,true);
+                    
+                ShielTimer = 8000;
+            }
+            else
+                ShielTimer -= diff;
+
+            if (!UpdateVictim())
+                return;
+            
+            if (!me->HasUnitState(UNIT_STAT_STUNNED))
+                me->SetControlled(true,UNIT_STAT_STUNNED);//disable rotate
+
+            if (m_Entry != 2674 && m_Entry != 2673)
+            {
+                if (ResetTimer <= diff)
+                {
+                    EnterEvadeMode();
+                    ResetTimer = 10000;
+                }
+                else
+                    ResetTimer -= diff;
+                
+                return;
+            }
+            else
+            {
+                if (DespawnTimer <= diff)
+                    me->ForcedDespawn();
+                else
+                    DespawnTimer -= diff;
+            }
+        }
+	    
+        void MoveInLineOfSight(Unit * /*who*/)
+        {
+            return;
+        }
+	};
+
+	CreatureAI* GetAI(Creature* pCreature) const
+	{
+	    return new npc_training_dummy_argentAI(pCreature);
+	}
+};
+
 void AddSC_icecrown()
 {
     new npc_arete;
@@ -432,4 +573,5 @@ void AddSC_icecrown()
     new npc_argent_tournament_post;
     new npc_alorah_and_grimmin;
     new npc_guardian_pavilion;
+    new npc_training_dummy_argent;
 }
