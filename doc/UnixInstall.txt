@@ -1,4 +1,5 @@
-= TrinityCore -- Linux installation =
+= TrioraCore -- Linux installation =
+Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
 Copyright (C) 2008-2010 TrinityCore (http://www.trinitycore.org)
 
 =========================================================
@@ -46,7 +47,8 @@ than where to install using flags built into our cmake files. Just open
 up CMakeLists.txt in the main folder and take a look at some of the 
 flags like
 
-    SERVERS             Build worldserver and authserver
+    WITH_WORLDSERVER    Build worldserver
+    WITH_AUTHSERVER     Build authserver
     SCRIPTS             Build core with scripts included
     TOOLS               Build map/vmap extraction/assembler tools
     USE_SCRIPTPCH       Use precompiled headers when compiling scripts

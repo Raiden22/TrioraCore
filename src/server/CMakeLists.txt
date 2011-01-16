@@ -1,3 +1,4 @@
+# Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
 # Copyright (C) 2008-2010 Trinity <http://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
@@ -16,7 +17,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   add_definitions(-fno-delete-null-pointer-checks)
 endif()
 
-if( SERVERS )
+if(WITH_WORLDSERVER AND WITH_AUTHSERVER)
   set(sources_Debugging
     ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging/WheatyExceptionReport.cpp
     ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging/WheatyExceptionReport.h
@@ -27,8 +28,25 @@ if( SERVERS )
   add_subdirectory(authserver)
   add_subdirectory(scripts)
   add_subdirectory(worldserver)
+elseif(WITH_WORLDSERVER AND NOT WITH_AUTHSERVER)
+  set(sources_Debugging
+    ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging/WheatyExceptionReport.cpp
+    ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging/WheatyExceptionReport.h
+  )
+  add_subdirectory(shared)
+  add_subdirectory(game)
+  add_subdirectory(collision)
+  add_subdirectory(scripts)
+  add_subdirectory(worldserver)
+elseif(WITH_AUTHSERVER AND NOT WITH_WORLDSERVER)
+  set(sources_Debugging
+    ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging/WheatyExceptionReport.cpp
+    ${CMAKE_SOURCE_DIR}/src/server/shared/Debugging/WheatyExceptionReport.h
+  )
+  add_subdirectory(shared)
+  add_subdirectory(authserver)
 else()
-  if( TOOLS )
+  if(TOOLS)
     add_subdirectory(collision)
   endif()
 endif()

@@ -1,3 +1,4 @@
+# Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
 # Copyright (C) 2008-2010 Trinity <http://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
@@ -8,7 +9,8 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-option(SERVERS          "Build worldserver and authserver"                            1)
+option(WITH_WORLDSERVER "Build worldserver"                                           1)
+option(WITH_AUTHSERVER  "Build authserver"                                            1)
 option(SCRIPTS          "Build core with scripts included"                            1)
 option(TOOLS            "Build map/vmap extraction/assembler tools"                   0)
 option(USE_SCRIPTPCH    "Use precompiled headers when compiling scripts"              1)

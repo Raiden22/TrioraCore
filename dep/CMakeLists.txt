@@ -1,3 +1,4 @@
+# Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
 # Copyright (C) 2008-2010 Trinity <http://www.trinitycore.org/>
 #
 # This file is free software; as a special exception the author gives
@@ -8,20 +9,20 @@
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-if( CMAKE_COMPILER_IS_GNUCXX )
+if(CMAKE_COMPILER_IS_GNUCXX)
   add_definitions(--no-warnings)
 elseif( MSVC )
   add_definitions(/W0)
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Linux")
-  if(SERVERS)
+  if(WITH_WORLDSERVER)
     add_subdirectory(jemalloc)
   endif()
 endif()
 
 if(CMAKE_SYSTEM_NAME MATCHES "Windows")
-  if(SERVERS)
+  if(WITH_WORLDSERVER OR WITH_AUTHSERVER)
     add_subdirectory(acelite)
     if(USE_MYSQL_SOURCES)
       add_subdirectory(mysqllite)
@@ -31,9 +32,11 @@ if(CMAKE_SYSTEM_NAME MATCHES "Windows")
   add_subdirectory(zlib)
 endif()
 
-add_subdirectory(g3dlite)
+if(WITH_WORLDSERVER OR TOOLS)
+  add_subdirectory(g3dlite)
+endif()
 
-if(SERVERS)
+if(WITH_WORLDSERVER)
   add_subdirectory(gsoap)
 endif()
 
