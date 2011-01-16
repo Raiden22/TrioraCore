@@ -82,13 +82,13 @@ LogsDir = ""
 #                                                                 section my.ini)
 #                     ".;/path/to/unix_socket;username;password;database" - (use Unix sockets on
 #                                                                           Unix/Linux)
-#        Default:     "127.0.0.1;3306;trinity;trinity;auth"       - (LoginDatabaseInfo)
-#                     "127.0.0.1;3306;trinity;trinity;world"      - (WorldDatabaseInfo)
-#                     "127.0.0.1;3306;trinity;trinity;characters" - (CharacterDatabaseInfo)
+#        Default:     "127.0.0.1;3306;wow;triora;auth"       - (LoginDatabaseInfo)
+#                     "127.0.0.1;3306;wow;triora;world"      - (WorldDatabaseInfo)
+#                     "127.0.0.1;3306;wow;triora;characters" - (CharacterDatabaseInfo)
 
-LoginDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;trinity;trinity;characters"
+LoginDatabaseInfo     = "127.0.0.1;3306;wow;triora;auth"
+WorldDatabaseInfo     = "127.0.0.1;3306;wow;triora;world"
+CharacterDatabaseInfo = "127.0.0.1;3306;wow;triora;characters"
 
 #
 #    LoginDatabase.WorkerThreads
@@ -246,9 +246,9 @@ ChangeWeatherInterval = 600000
 #
 #    PlayerSaveInterval
 #        Description: Time (in milliseconds) for player save interval.
-#        Default:     900000 - (15 min)
+#        Default:     300000 - (5 min)
 
-PlayerSaveInterval = 900000
+PlayerSaveInterval = 300000
 
 #
 #    PlayerSave.Stats.MinLevel
@@ -488,7 +488,7 @@ CharLogFile = "Char.log"
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-CharLogTimestamp = 0
+CharLogTimestamp = 1
 
 #
 #    CharLogDump
@@ -499,7 +499,7 @@ CharLogTimestamp = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-CharLogDump = 0
+CharLogDump = 1
 
 #
 #    CharLogDump.Separate
@@ -508,7 +508,7 @@ CharLogDump = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-CharLogDump.Separate = 0
+CharLogDump.Separate = 1
 
 #
 #    CharLogDump.SeparateDir
@@ -516,7 +516,7 @@ CharLogDump.Separate = 0
 #        Example:     "chardumps" - (Enabled)
 #        Default:     ""         - (Disabled)
 
-CharLogDump.SeparateDir = ""
+CharLogDump.SeparateDir = "chardumps"
 
 #
 #    GmLogFile
@@ -533,7 +533,7 @@ GmLogFile = "GM.log"
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-GmLogTimestamp = 0
+GmLogTimestamp = 1
 
 #
 #    GmLogPerAccount
@@ -542,7 +542,7 @@ GmLogTimestamp = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-GmLogPerAccount = 0
+GmLogPerAccount = 1
 
 #
 #    RaLogFile
@@ -558,7 +558,7 @@ RaLogFile = "RA.log"
 #        Example:     "Arena.log" - (Enabled)
 #        Default:     ""          - (Disabled)
 
-ArenaLogFile = ""
+ArenaLogFile = "Arena.log"
 
 #
 #    ArenaLog.ExtendedInfo
@@ -567,7 +567,7 @@ ArenaLogFile = ""
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-ArenaLog.ExtendedInfo = 0
+ArenaLog.ExtendedInfo = 1
 
 #
 #    SQLDriverLogFile
@@ -606,7 +606,7 @@ SQLDriverQueryLogging = 0
 #        Example:     "13 11 9 5" - (Enabled)
 #        Default:     ""          - (Disabled)
 
-LogColors = ""
+LogColors = "13 11 9 5"
 
 #
 #    EnableLogDB
@@ -772,7 +772,7 @@ ChatLogs.BattleGround = 0
 #                     16 - (FFA_PVP, Free for all pvp mode like arena PvP in all zones except rest
 #                          activated places and sanctuaries)
 
-GameType = 0
+GameType = 1
 
 #
 #    RealmZone
@@ -1331,7 +1331,7 @@ BeepAtStart = 1
 #        Example:     "Welcome to John\'s Server@This server runs on Trinity Core."
 #        Default:     "Welcome to a Trinity Core server."
 
-Motd = "Welcome to a Trinity Core server."
+Motd = "Welcome to a Triora Core server."
 
 #
 #    Server.LoginInfo
@@ -1362,7 +1362,7 @@ AllowTickets = 1
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled, Experimental as of still being in development)
 
-DungeonFinder.Enable = 0
+DungeonFinder.Enable = 1
 
 #
 #   DBC.EnforceItemAttributes
@@ -1400,7 +1400,7 @@ AllowTwoSide.Interaction.Chat = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-AllowTwoSide.Interaction.Channel = 0
+AllowTwoSide.Interaction.Channel = 1
 
 #
 #    AllowTwoSide.Interaction.Group
@@ -1424,7 +1424,7 @@ AllowTwoSide.Interaction.Guild = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-AllowTwoSide.Interaction.Auction = 0
+AllowTwoSide.Interaction.Auction = 1
 
 #
 #    AllowTwoSide.Interaction.Mail
@@ -1440,7 +1440,7 @@ AllowTwoSide.Interaction.Mail = 0
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-AllowTwoSide.WhoList = 0
+AllowTwoSide.WhoList = 1
 
 #
 #    AllowTwoSide.AddFriend
@@ -1717,14 +1717,14 @@ Channel.SilentlyGMJoin = 0
 #        Description: Level requirement for characters to be able to write in chat channels.
 #        Default:     1
 
-ChatLevelReq.Channel = 1
+ChatLevelReq.Channel = 10
 
 #
 #    ChatLevelReq.Whisper
 #        Description: Level requirement for characters to be able to whisper other characters.
 #        Default:     1
 
-ChatLevelReq.Whisper = 1
+ChatLevelReq.Whisper = 10
 
 #
 #    ChatLevelReq.Say
@@ -1750,7 +1750,7 @@ AllowPlayerCommands = 1
 #        Default:     0 - (Disabled, Blizzlike, Channel settings are lost if last person left)
 #                     1 - (Enabled)
 
-PreserveCustomChannels = 1
+PreserveCustomChannels = 0
 
 #
 #    PreserveCustomChannelDuration
@@ -1774,7 +1774,7 @@ PreserveCustomChannelDuration = 14
 #                     0 - (Disable)
 #                     1 - (Enable)
 
-GM.LoginState = 2
+GM.LoginState = 1
 
 #
 #    GM.Visible
@@ -1783,7 +1783,7 @@ GM.LoginState = 2
 #                     0 - (Invisible)
 #                     1 - (Visible)
 
-GM.Visible = 2
+GM.Visible = 0
 
 #
 #    GM.Chat
@@ -1792,7 +1792,7 @@ GM.Visible = 2
 #                     0 - (Disable)
 #                     1 - (Enable)
 
-GM.Chat = 2
+GM.Chat = 1
 
 #
 #    GM.WhisperingTo
@@ -1801,7 +1801,7 @@ GM.Chat = 2
 #                     0 - (Disable)
 #                     1 - (Enable)
 
-GM.WhisperingTo = 2
+GM.WhisperingTo = 1
 
 #
 #    GM.InGMList.Level
@@ -1836,7 +1836,7 @@ GM.LogTrade = 1
 #        Description: GM character starting level.
 #        Default:     1
 
-GM.StartLevel = 1
+GM.StartLevel = 80
 
 #
 #    GM.AllowInvite
@@ -1869,7 +1869,7 @@ GM.LowerSecurity = 0
 #        Default:     1 - (Enabled)
 #                     0 - (Disabled)
 
-GM.AllowAchievementGain = 1
+GM.AllowAchievementGain = 0
 
 #
 #    GM.TicketSystem.ChanceOfGMSurvey
@@ -2273,7 +2273,7 @@ Die.Command.Mode = 1
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-AutoBroadcast.On = 0
+AutoBroadcast.On = 1
 
 #
 #    AutoBroadcast.Center
@@ -2287,9 +2287,9 @@ AutoBroadcast.Center = 0
 #
 #    AutoBroadcast.Timer
 #        Description: Timer (in milliseconds) for auto broadcasts.
-#        Default:     60000 - (60 seconds)
+#        Default:     600000 - (10 min)
 
-AutoBroadcast.Timer = 60000
+AutoBroadcast.Timer = 600000
 
 #
 ###################################################################################################
@@ -2310,7 +2310,7 @@ Battleground.CastDeserter = 1
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-Battleground.QueueAnnouncer.Enable = 0
+Battleground.QueueAnnouncer.Enable = 1
 
 #
 #    Battleground.QueueAnnouncer.PlayerOnly
@@ -2354,7 +2354,7 @@ BattleGround.PremadeGroupWaitForMatch = 1800000
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-Battleground.GiveXPForKills = 0
+Battleground.GiveXPForKills = 1
 
 #
 #    Battleground.Random.ResetHour
@@ -2381,10 +2381,10 @@ Arena.MaxRatingDifference = 150
 #    Arena.RatingDiscardTimer
 #        Description: Time (in milliseconds) after which rating differences are ignored when
 #                     setting up matches.
-#        Default:     600000 - (Enabled, 10 minutes)
+#        Default:     60000 - (Enabled, 1 minutes)
 #                     0      - (Disabled)
 
-Arena.RatingDiscardTimer = 600000
+Arena.RatingDiscardTimer = 60000
 
 #
 #    Arena.AutoDistributePoints
@@ -2392,7 +2392,7 @@ Arena.RatingDiscardTimer = 600000
 #        Default:     0 - (Disabled)
 #                     1 - (Enabled)
 
-Arena.AutoDistributePoints = 0
+Arena.AutoDistributePoints = 1
 
 #
 #    Arena.AutoDistributeInterval
@@ -2558,7 +2558,7 @@ SOAP.Port = 7878
 #                     1 - (Unlink the character from account and free up the name, Appears as
 #                         deleted ingame)
 
-CharDelete.Method = 0
+CharDelete.Method = 1
 
 #
 #    CharDelete.MinLevel
@@ -2574,7 +2574,7 @@ CharDelete.MinLevel = 0
 #        Default:     30 - (Enabled)
 #                     0  - (Disabled, Don't delete any characters)
 
-CharDelete.KeepDays = 30
+CharDelete.KeepDays = 0
 
 #
 ###################################################################################################
