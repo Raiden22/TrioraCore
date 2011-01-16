@@ -4003,13 +4003,14 @@ CREATE TABLE `outdoorpvp_template` (
 
 LOCK TABLES `outdoorpvp_template` WRITE;
 /*!40000 ALTER TABLE `outdoorpvp_template` DISABLE KEYS */;
-INSERT INTO `outdoorpvp_template` (`TypeId`, `Comment`) VALUES
-(1, 'Hellfire Peninsula'),
-(2, 'Nagrand'),
-(3, 'Terokkar Forest'),
-(4, 'Zangarmarsh'),
-(5, 'Silithus'),
-(6, 'Eastern Plaguelands');
+INSERT INTO `outdoorpvp_template` (`TypeId`,`ScriptName`,`Comment`) VALUES
+(1, 'outdoorpvp_hp', 'Hellfire Peninsula'),
+(2, 'outdoorpvp_na', 'Nagrand'),
+(3, 'outdoorpvp_tf', 'Terokkar Forest'),
+(4, 'outdoorpvp_zm', 'Zangarmarsh'),
+(5, 'outdoorpvp_si', 'Silithus'),
+(6, 'outdoorpvp_ep', 'Eastern Plaguelands');
+(7, 'outdoorpvp_wg', 'Wintergrasp')
 /*!40000 ALTER TABLE `outdoorpvp_template` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -27447,6 +27448,27 @@ INSERT INTO `trinity_string` (`entry`,`content_default`,`content_loc1`,`content_
 (753, 'The battle for Warsong Gulch begins in 2 minutes.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (754, 'The battle for Arathi Basin begins in 2 minutes.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (755, 'The battle for Eye of the Storm begins in 2 minutes.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(756, 'Battle begins!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Битва началась'),
+(757, '%s has successfully defended the fortress!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '%s успешно защитил(а) крепость!'),
+(758, '%s has taken over the fortress!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '%s захватил(а) крепость'),
+(759, 'The %s siege workshop has been damaged by the %s!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(760, 'The %s siege workshop has been destroyed by the %s!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(761, 'The %s tower has been damaged!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '%s башня повреждена'),
+(762, 'The %s tower has been destroyed!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '%s башня уничтожена!'),
+(763, 'Wintergrasp fortress is under attack!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(764, 'Wintergrasp is now under the control of the %s.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(765, 'Wintergrasp timer set to %s.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(766, 'Wintergrasp battle started.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(767, 'Wintergrasp battle finished.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(768, 'Wintergrasp info: %s controlled. Timer: %s. Wartime: %s. Number of Players: (Horde: %u, Alliance: %u)', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(769, 'Wintergrasp outdoorPvP is disabled.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(770, 'Wintergrasp outdoorPvP is enabled.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(771, 'You have reached Rank 1: Corporal', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Вы достигли Ранга 1: Капрал'),
+(772, 'You have reached Rank 2: First Lieutenant', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Вы достигли Ранга 2: Лейтенант'),
+(780, 'Before the Battle of  Wintergrasp left 30 minutes!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'До битвы на  Озере Ледяных Оков осталось 30 минут!'),
+(781, 'Before the Battle of  Wintergrasp left 10 minutes!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'До битвы на  Озере Ледяных Оков осталось 10 минут!'),
+(782, 'The battle for Wintergrasp  has stopped! Not enough defenders. Wintergrasp Fortress remains  Attackers.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Битва за Озеро Ледяных Оков Остановлена. Не хватает защитников. Крепость переходит атакующей  стороне.'),
+(783, 'The battle for Wintergrasp  has stopped! Not enough attackers. Wintergrasp Fortress remains  Defenders.', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Битва за Озеро Ледяных Оков Остановлена. Не хватает нападающих. Крепость остается защитникам.'),
 (785, 'Arena testing turned %s', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (786, '|cffff0000[Automatic]:|r', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (787, '|cffffff00[|c1f40af20Announce by|r |cffff0000%s|cffffff00]:|r %s|r', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
