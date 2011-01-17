@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2005-2009 MaNGOS <http://getmangos.com/>
  *
@@ -160,7 +161,8 @@ enum AccountTypes
     SEC_MODERATOR      = 1,
     SEC_GAMEMASTER     = 2,
     SEC_ADMINISTRATOR  = 3,
-    SEC_CONSOLE        = 4                                  // must be always last in list, accounts must have less security level always also
+    SEC_DEVELOPER      = 4,
+    SEC_CONSOLE        = 5                                  // must be always last in list, accounts must have less security level always also
 };
 
 enum LocaleConstant
