@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -158,8 +159,83 @@ public:
     }
 };
 
+/*######
+## npc_36776
+######*/
+enum eNPC_36776
+{
+    FACTION_ENEMY       = 14,
+    QUEST_14457         = 14457,
+};
+
+class npc_36776 : public CreatureScript
+{
+public:
+    npc_36776() : CreatureScript("npc_36776") { }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch (uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF+1:
+                pPlayer->CLOSE_GOSSIP_MENU();
+                pCreature->RemoveFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
+                pCreature->setFaction(FACTION_ENEMY);
+                pCreature->AI()->AttackStart(pPlayer);
+            break;
+        }
+        return true;
+    }
+    
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pPlayer->GetQuestStatus(QUEST_14457) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->ADD_GOSSIP_ITEM( 0, "Ага! Попался!", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+        
+        pPlayer->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCreature->GetGUID());
+        return true;
+    }
+
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_36776AI(pCreature);
+    }
+
+    struct npc_36776AI : public ScriptedAI
+    {
+        npc_36776AI(Creature *c) : ScriptedAI(c)
+        {
+            m_uiNormalFaction = c->getFaction();
+        }
+
+        uint32 m_uiNormalFaction;
+
+        void Reset()
+        {
+            if (me->getFaction() != m_uiNormalFaction)
+            {
+                me->setFaction(m_uiNormalFaction);
+                me->SetFlag(UNIT_NPC_FLAGS, UNIT_NPC_FLAG_GOSSIP);
+            }
+        }
+
+        void AttackedBy(Unit* pAttacker)
+        {
+            if (me->getVictim())
+                return;
+
+            if (me->IsFriendlyTo(pAttacker))
+                return;
+
+            AttackStart(pAttacker);
+        }
+    };
+};
+
 void AddSC_dalaran()
 {
     new npc_mageguard_dalaran;
     new npc_hira_snowdawn;
+    new npc_36776;
 }

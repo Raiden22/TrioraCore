@@ -566,6 +566,7 @@ UPDATE `creature_template` SET `ScriptName`='mob_shield_generator_channel' WHERE
 /* DALARAN */
 UPDATE `creature_template` SET `ScriptName`='npc_mageguard_dalaran' WHERE `entry` IN (29254,29255);
 UPDATE `creature_template` SET `ScriptName`='npc_hira_snowdawn' WHERE `entry`=31238;
+UPDATE `creature_template` SET `ScriptName`='npc_36776' WHERE `entry`=36776;
 
 /* DARKSHORE */
 UPDATE `creature_template` SET `ScriptName`='npc_kerlonian' WHERE `entry`=11218;
@@ -1749,6 +1750,7 @@ UPDATE `outdoorpvp_template` SET `ScriptName`='outdoorpvp_tf' WHERE `TypeId`=3;
 UPDATE `outdoorpvp_template` SET `ScriptName`='outdoorpvp_zm' WHERE `TypeId`=4;
 UPDATE `outdoorpvp_template` SET `ScriptName`='outdoorpvp_si' WHERE `TypeId`=5;
 UPDATE `outdoorpvp_template` SET `ScriptName`='outdoorpvp_ep' WHERE `TypeId`=6;
+UPDATE `outdoorpvp_template` SET `ScriptName`='outdoorpvp_wg' WHERE `TypeId`=7;
 
 /* ACHIEVEMENTS */
 DELETE FROM `achievement_criteria_data` WHERE `criteria_id` IN (3693,6641,6642,6643,6644,3804,3805,3806,3807,3808,3809,3810,3811,3812,3813,1234,1239,5605,5606,12778,13036,13035,13037,12977,12967,12986,12982,12993,12780,13012,13011,13013,12062,12063,12064,12065,12183,12068,12060,12061) AND `type` IN (0,11);
