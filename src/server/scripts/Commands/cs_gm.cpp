@@ -43,14 +43,63 @@ public:
             { "",               SEC_MODERATOR,      false, &HandleGMCommand,                  "", NULL },
             { NULL,             0,                  false, NULL,                              "", NULL }
         };
+        static ChatCommand devCommandTable[] =
+        {
+            { "",               SEC_DEVELOPER,      false, &HandleDEVCommand,                 "", NULL },
+            { NULL,             0,                  false, NULL,                              "", NULL }
+        };
         static ChatCommand commandTable[] =
         {
             { "gm",             SEC_MODERATOR,      false, NULL,                     "", gmCommandTable },
+            { "dev",            SEC_DEVELOPER,      false, NULL,                    "", devCommandTable },
             { NULL,             0,                  false, NULL,                               "", NULL }
         };
         return commandTable;
     }
 
+    //Enable\Disable DEV Mode
+    static bool HandleDEVCommand(ChatHandler* handler, const char* args)
+    {
+        Player * plr = handler->GetSession()->GetPlayer();
+        
+        if (!*args)
+        {
+            if(plr->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER))
+            {
+                plr->RemoveFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER);
+                handler->GetSession()->SendNotification(LANG_DEV_OFF);
+            }
+            else
+            {
+                plr->SetFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER);
+                handler->GetSession()->SendNotification(LANG_DEV_ON);
+            }
+            return true;
+        }
+
+        std::string argstr = (char*)args;
+
+        if (argstr == "on")
+        {
+            if(!plr->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER))
+            {
+                plr->SetFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER);
+                handler->GetSession()->SendNotification(LANG_DEV_ON);
+            }
+            return true;
+        }
+
+        if (argstr == "off")
+        {
+            if(plr->HasFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER))
+            {
+                plr->RemoveFlag(PLAYER_FLAGS, PLAYER_FLAGS_DEVELOPER);
+                handler->GetSession()->SendNotification(LANG_DEV_OFF);
+            }
+            return true;
+        }
+        return false;
+    }
     // Enables or disables hiding of the staff badge
     static bool HandleGMChatCommand(ChatHandler* handler, const char* args)
     {

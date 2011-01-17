@@ -339,7 +339,9 @@ enum TrinityStrings
     LANG_TITLE_REMOVE_RES               = 354,
     LANG_TITLE_CURRENT_RES              = 355,
     LANG_CURRENT_TITLE_RESET            = 356,
-    // Room for more level 2              357-399 not used
+    LANG_DEV_ON                         = 357,
+    LANG_DEV_OFF                        = 358,
+    // Room for more level 2              359-399 not used
 
     // level 3 chat
     LANG_SCRIPTS_RELOADED               = 400,
