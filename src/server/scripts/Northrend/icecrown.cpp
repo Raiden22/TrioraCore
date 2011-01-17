@@ -430,11 +430,11 @@ public:
 
 enum eSpells
 {
-    SPELL_DEFEND_AURA			= 62719,
-    SPELL_DEFEND_AURA_1			= 64100,
-    SPELL_ARGENT_CHARGE			= 68321,
-    SPELL_ARGENT_BREAK_SHIELD	= 62626,
-    SPELL_ARGENT_MELEE			= 62544,
+    SPELL_DEFEND_AURA           = 62719, //green
+    SPELL_DEFEND_AURA_1         = 64100, //red
+    SPELL_ARGENT_CHARGE	        = 63010,
+    SPELL_ARGENT_BREAK_SHIELD	= 65147,
+    SPELL_ARGENT_MELEE          = 68505,
 };
 
 class npc_training_dummy_argent : public CreatureScript
@@ -486,29 +486,54 @@ public:
 
 		void SpellHit(Unit* caster,const SpellEntry* spell)
 		{
-			if (caster->GetOwner())
-			{
-				if (m_Entry == 33272)
-					if (spell->Id == SPELL_ARGENT_CHARGE)
-						if (!me->GetAura(SPELL_DEFEND_AURA))
-							caster->GetOwner()->ToPlayer()->KilledMonsterCredit(33340, 0);
-                            
-				if (m_Entry == 33229)
+            if (caster->GetTypeId() == TYPEID_PLAYER)
+                return;
+                
+            Vehicle *pVehicle = caster->GetVehicleKit();
+            if (!pVehicle)
+                return;
+                
+            if (Unit *owner = pVehicle->GetPassenger(0))
+            {
+                if (Player *player = (Player*)owner)
                 {
-					if (spell->Id == SPELL_ARGENT_MELEE)
-					{
-                        me->CastSpell(caster,62709,true);
-						caster->GetOwner()->ToPlayer()->KilledMonsterCredit(33341, 0);
-					}
-				}
-			}
-				
-            if (m_Entry == 33243)
-                if (spell->Id == SPELL_ARGENT_BREAK_SHIELD)
-                    if (!me->GetAura(SPELL_DEFEND_AURA))
-                        if (caster->GetTypeId() == TYPEID_PLAYER)
-                            caster->ToPlayer()->KilledMonsterCredit(33339, 0);
-		}
+                    if (!me->GetEntry())
+                        return;
+                        
+                    switch (me->GetEntry())
+                    {
+                        case 33229: // Melee Target
+                            if (spell->Id == SPELL_ARGENT_MELEE) // Thrust
+                            {
+                                player->KilledMonsterCredit(33341,0);
+                                me->CastSpell(caster,62709,true);
+                                sLog->outString("SPELL_ARGENT_MELEE");
+                            }
+                        break;
+                        case 33272: // Charge Target
+                            if (spell->Id == SPELL_ARGENT_CHARGE) // Charge
+                            {
+                                //if(!me->GetAura(SPELL_DEFEND_AURA))
+                                //{
+                                    player->KilledMonsterCredit(33340,0);
+                                //}
+                            }
+                        break;
+                        case 33243: // Ranged Target
+                            if (spell->Id == SPELL_ARGENT_BREAK_SHIELD) // Shield Breaker
+                            {
+                                //if(!me->GetAura(SPELL_DEFEND_AURA))
+                                //{
+                                    player->KilledMonsterCredit(33339,0);
+                                //}
+                            }
+                        break;
+                    }
+                }
+                return;
+            }
+            return;
+        }
 
 	    void UpdateAI(const uint32 diff)
         {
@@ -517,7 +542,7 @@ public:
                 if (m_Entry == 33243)
                     me->CastSpell(me,SPELL_DEFEND_AURA,true);
 
-                if (m_Entry == 33272 && !me->GetAura(SPELL_DEFEND_AURA_1))
+                if (m_Entry == 33272)
                     me->CastSpell(me,SPELL_DEFEND_AURA_1,true);
                     
                 ShielTimer = 8000;
