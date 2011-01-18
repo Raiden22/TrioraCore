@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
@@ -20,6 +21,7 @@
 SDName: GO_Scripts
 SD%Complete: 100
 SDComment: Quest support: 4285,4287,4288(crystal pylons), 4296, 6481, 10990, 10991, 10992, Field_Repair_Bot->Teaches spell 22704. Barov_journal->Teaches spell 26089,12843,12982, 2936. Soulwell
+TrioraComment: Quest support: 14076, 14092
 SDCategory: Game Objects
 EndScriptData */
 
@@ -1186,6 +1188,28 @@ public:
     }
 };
 
+/*######
+## go_mysterious_snow_mound
+######*/
+
+enum eSnowMound
+{
+    SPELL_SUMMON_DEEP_JORMUNGAR    = 66510,
+};
+
+class go_mysterious_snow_mound : public GameObjectScript
+{
+public:
+    go_mysterious_snow_mound() : GameObjectScript("go_mysterious_snow_mound") { }
+
+    bool OnGossipHello(Player *pPlayer, GameObject* pGO)
+    {
+        pGO->CastSpell(pPlayer,SPELL_SUMMON_DEEP_JORMUNGAR);
+
+        return true;
+    }
+};
+
 void AddSC_go_scripts()
 {
     new go_cat_figurine;
@@ -1224,4 +1248,5 @@ void AddSC_go_scripts()
     new go_amberpine_outhouse;
     new go_hive_pod;
     new go_massive_seaforium_charge;
+    new go_mysterious_snow_mound;
 }

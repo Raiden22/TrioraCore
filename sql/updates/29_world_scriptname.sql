@@ -1,1 +1,1 @@
-UPDATE `item_template` SET `ScriptName` = 'item_earthshaker_drum' WHERE `entry` = '46893';
+UPDATE `gameobject_template` SET `ScriptName`='go_mysterious_snow_mound' WHERE `entry`='195308';

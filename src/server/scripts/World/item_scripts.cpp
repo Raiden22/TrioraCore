@@ -1,5 +1,4 @@
 /*
- * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  * Copyright (C) 2006-2009 ScriptDev2 <https://scriptdev2.svn.sourceforge.net/>
  *
@@ -21,7 +20,6 @@
 SDName: Item_Scripts
 SD%Complete: 100
 SDComment: Items for a range of different items. See content below (in script)
-TrioraComment: Quest support: 14076, 14092
 SDCategory: Items
 EndScriptData */
 
@@ -512,22 +510,6 @@ public:
     }
 };
 
-/*#####
-+# item_earthshaker_drum (Fix quest 14076, 14092)
-+#####*/
-
-class item_earthshaker_drum : public ItemScript
-{
-public:
-    item_earthshaker_drum() : ItemScript("item_earthshaker_drum") { }
-
-    bool OnUse(Player* pPlayer, Item* pItem, const SpellCastTargets &pTargets)
-    {
-        pPlayer->SummonCreature(34920, pPlayer->GetPositionX(), pPlayer->GetPositionY(), pPlayer->GetPositionZ(), pPlayer->GetOrientation(), TEMPSUMMON_DEAD_DESPAWN, 1000);
-        return false;
-    }
-};
-
 void AddSC_item_scripts()
 {
     new item_only_for_flight;
@@ -544,5 +526,4 @@ void AddSC_item_scripts()
     new item_dehta_trap_smasher;
     new item_trident_of_nazjan;
     new item_captured_frog();
-    new item_earthshaker_drum();
 }
