@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -73,6 +74,9 @@ public:
             Player *pPlayer = pWho->GetCharmerOrOwnerPlayerOrPlayerItself();
 
             if (!pPlayer || pPlayer->isGameMaster() || pPlayer->IsBeingTeleported())
+                return;
+                
+            if (pWho->HasAura(70973) || pWho->HasAura(70974) || pWho->HasAura(70971) || pWho->HasAura(70972))
                 return;
 
             switch (me->GetEntry())
@@ -233,9 +237,122 @@ public:
     };
 };
 
+/*######
+## npc_36670
+######*/
+enum eNPC_36670
+{
+    QUEST_20439         = 20439,
+    SPELL_CREATE_BOOK   = 69722,
+    
+    SAY_01              = -1800071,
+    SAY_02              = -1800072,
+    SAY_03              = -1800073,
+};
+
+class npc_36670 : public CreatureScript
+{
+public:
+    npc_36670() : CreatureScript("npc_36670") { }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch (uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF+1:
+                pPlayer->CLOSE_GOSSIP_MENU();
+                pCreature->setFaction(35);
+                pCreature->CastSpell(pPlayer, SPELL_CREATE_BOOK, true);
+            break;
+        }
+        return true;
+    }
+    
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pPlayer->GetQuestStatus(QUEST_20439) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->ADD_GOSSIP_ITEM( 0, "Я готов получить книгу у магистра Хатореля.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+        
+        pPlayer->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCreature->GetGUID());
+        return true;
+    }
+    
+    CreatureAI* GetAI(Creature* pCreature) const
+    {
+        return new npc_36670AI (pCreature);
+    }
+
+    struct npc_36670AI : public ScriptedAI
+    {
+        npc_36670AI(Creature *pCreature) : ScriptedAI(pCreature) 
+        {
+        }
+        
+        uint32 StepTimer;
+        uint32 Step;
+        uint32 Start;
+        uint64 uiPlayerGUID;
+        
+        void Reset()
+        {
+            Step = 0;
+            Start = 0;
+            uiPlayerGUID = 0;
+        }
+        
+        void JumpNextStep(uint32 Time)
+        {
+            StepTimer = Time;
+            Step++;
+        }
+        
+        void StartEvent()
+        {
+            Step = 1;
+            Start = 1;
+            StepTimer = 100;
+        }
+        
+        void Event()
+        {
+            switch(Step)
+            {
+                case 1:
+                    DoScriptText(SAY_01, me);
+                    JumpNextStep(4000);
+                    break;
+                case 2:
+                    DoScriptText(SAY_02, me);
+                    JumpNextStep(1000);
+                    break;
+                case 3:
+                    DoScriptText(SAY_03, me);
+                    me->RestoreFaction();
+                    Step = 0;
+                    break;
+            }
+        }
+        
+        void UpdateAI(const uint32 diff)
+        {
+            if (me->getFaction()==35 && Start != 1)
+                StartEvent();
+                
+            if(StepTimer < diff && Start == 1)
+                Event();
+            else 
+                StepTimer -= diff;
+
+            return;
+        }
+    };
+};
+
 void AddSC_dalaran()
 {
     new npc_mageguard_dalaran;
     new npc_hira_snowdawn;
     new npc_36776;
+    new npc_36670;
 }
