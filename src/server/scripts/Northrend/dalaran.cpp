@@ -170,6 +170,7 @@ enum eNPC_36776
 {
     FACTION_ENEMY       = 14,
     QUEST_14457         = 14457,
+    QUEST_24557         = 24557,
 };
 
 class npc_36776 : public CreatureScript
@@ -194,8 +195,9 @@ public:
     
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
     {
-        if (pPlayer->GetQuestStatus(QUEST_14457) == QUEST_STATUS_INCOMPLETE)
-            pPlayer->ADD_GOSSIP_ITEM( 0, "Ага! Попался!", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+        if ((pPlayer->GetTeam() == ALLIANCE && pPlayer->GetQuestStatus(QUEST_14457) == QUEST_STATUS_INCOMPLETE) ||
+            (pPlayer->GetTeam() == HORDE && pPlayer->GetQuestStatus(QUEST_24557) == QUEST_STATUS_INCOMPLETE))
+                pPlayer->ADD_GOSSIP_ITEM( 0, "Ага! Попался!", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
         
         pPlayer->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCreature->GetGUID());
         return true;
@@ -243,11 +245,19 @@ public:
 enum eNPC_36670
 {
     QUEST_20439         = 20439,
+    QUEST_24451         = 24451,
     SPELL_CREATE_BOOK   = 69722,
     
     SAY_01              = -1800071,
-    SAY_02              = -1800072,
-    SAY_03              = -1800073,
+    
+    SAY_02_1            = -1800072,
+    SAY_03_1            = -1800073,
+     
+    SAY_02_2            = -1800074,
+    SAY_03_2            = -1800075,
+    
+    NPC_36670           = 36670,
+    NPC_36669           = 36669,
 };
 
 class npc_36670 : public CreatureScript
@@ -271,8 +281,12 @@ public:
     
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
     {
-        if (pPlayer->GetQuestStatus(QUEST_20439) == QUEST_STATUS_INCOMPLETE)
-            pPlayer->ADD_GOSSIP_ITEM( 0, "Я готов получить книгу у магистра Хатореля.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+        if ((pPlayer->GetTeam() == ALLIANCE && pPlayer->GetQuestStatus(QUEST_20439) == QUEST_STATUS_INCOMPLETE) ||
+            (pPlayer->GetTeam() == HORDE && pPlayer->GetQuestStatus(QUEST_24451) == QUEST_STATUS_INCOMPLETE))         
+                pPlayer->ADD_GOSSIP_ITEM( 0, "Я готов получить книгу у магистра Хатореля.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+        
+        if (pCreature->isQuestGiver())
+            pPlayer->PrepareQuestMenu(pCreature->GetGUID()); 
         
         pPlayer->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCreature->GetGUID());
         return true;
@@ -323,11 +337,17 @@ public:
                     JumpNextStep(4000);
                     break;
                 case 2:
-                    DoScriptText(SAY_02, me);
+                    if (me->GetEntry() == NPC_36670)
+                        DoScriptText(SAY_02_1, me);
+                    else if (me->GetEntry() == NPC_36669)
+                        DoScriptText(SAY_02_2, me);
                     JumpNextStep(1000);
                     break;
                 case 3:
-                    DoScriptText(SAY_03, me);
+                    if (me->GetEntry() == NPC_36670)
+                        DoScriptText(SAY_03_1, me);
+                    else if (me->GetEntry() == NPC_36669)
+                        DoScriptText(SAY_03_2, me);
                     me->RestoreFaction();
                     Step = 0;
                     break;
