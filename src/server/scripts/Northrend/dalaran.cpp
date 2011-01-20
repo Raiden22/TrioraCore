@@ -401,8 +401,11 @@ public:
     
     bool OnGossipHello(Player* pPlayer, Creature* pCreature)
     {
-        if (pPlayer->GetQuestStatus(QUEST_H_24556) == QUEST_STATUS_INCOMPLETE || pPlayer->GetQuestStatus(QUEST_A_20438) == QUEST_STATUS_INCOMPLETE)         
+        if (pPlayer->GetQuestStatus(QUEST_A_20438) == QUEST_STATUS_INCOMPLETE)         
             pPlayer->ADD_GOSSIP_ITEM( 0, "Магистр Хаторель сказал, что вы могли бы одолжить мне определенную накидку.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+            
+        if (pPlayer->GetQuestStatus(QUEST_H_24556) == QUEST_STATUS_INCOMPLETE)
+            pPlayer->ADD_GOSSIP_ITEM( 0, "Чародей Тибалин сказал, что вы могли бы одолжить мне определенную накидку.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
                
         pPlayer->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCreature->GetGUID());
         return true;
