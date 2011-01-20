@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2011 TrioraCore <http://www.trioracore.ru/>
  * Copyright (C) 2008-2011 TrinityCore <http://www.trinitycore.org/>
  *
  * This program is free software; you can redistribute it and/or modify it
@@ -179,6 +180,12 @@ class boss_tyrannus : public CreatureScript
             {
                 DoScriptText(SAY_DEATH, me);
                 instance->SetBossState(DATA_TYRANNUS, DONE);
+                
+                if (instance->GetData(DATA_TEAM_IN_INSTANCE) == ALLIANCE)
+                    me->SummonCreature(NPC_JAINA_PART2, 1056.9428f, 157.1093f, 628.1562f, 2.8831540f, TEMPSUMMON_MANUAL_DESPAWN);
+                else
+                    me->SummonCreature(NPC_SYLVANAS_PART2, 1056.9428f, 157.1093f, 628.1562f, 2.8831540f, TEMPSUMMON_MANUAL_DESPAWN);
+
             }
 
             void DoAction(const int32 actionId)
