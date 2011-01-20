@@ -369,10 +369,51 @@ public:
     };
 };
 
+/*######
+## npc_36856
+######*/
+
+enum eNPC_36856
+{
+    QUEST_H_24556       = 24556,
+    QUEST_A_20438       = 20438,
+    
+    GO_CLEAN_LAUNDRY    = 201384,
+};
+//Magister Hathorel said you might be able to lend me a certain tabard.
+class npc_36856 : public CreatureScript
+{
+public:
+    npc_36856() : CreatureScript("npc_36856") { }
+
+    bool OnGossipSelect(Player* pPlayer, Creature* pCreature, uint32 /*uiSender*/, uint32 uiAction)
+    {
+        pPlayer->PlayerTalkClass->ClearMenus();
+        switch (uiAction)
+        {
+            case GOSSIP_ACTION_INFO_DEF+1:
+                pPlayer->CLOSE_GOSSIP_MENU();
+                pCreature->SummonGameObject(GO_CLEAN_LAUNDRY,5802.22f,691.56f,657.95f,3.51f,0, 0, 0, 0,90000000);
+            break;
+        }
+        return true;
+    }
+    
+    bool OnGossipHello(Player* pPlayer, Creature* pCreature)
+    {
+        if (pPlayer->GetQuestStatus(QUEST_H_24556) == QUEST_STATUS_INCOMPLETE || pPlayer->GetQuestStatus(QUEST_A_20438) == QUEST_STATUS_INCOMPLETE)         
+            pPlayer->ADD_GOSSIP_ITEM( 0, "Магистр Хаторель сказал, что вы могли бы одолжить мне определенную накидку.", GOSSIP_SENDER_MAIN, GOSSIP_ACTION_INFO_DEF+1);
+               
+        pPlayer->SEND_GOSSIP_MENU(DEFAULT_GOSSIP_MESSAGE, pCreature->GetGUID());
+        return true;
+    }
+};
+
 void AddSC_dalaran()
 {
     new npc_mageguard_dalaran;
     new npc_hira_snowdawn;
     new npc_36776;
     new npc_36670;
+    new npc_36856;
 }
